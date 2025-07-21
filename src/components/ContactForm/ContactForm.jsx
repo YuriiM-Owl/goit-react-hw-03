@@ -11,7 +11,12 @@ const ContactForm = ({ onAddContact }) => {
       .max(50, "Name cannot exceed 50 characters"),
     number: Yup.string()
       .required("Number is required")
-      .matches(/^\d+$/, "Number must be numeric"),
+      .matches(
+        /^\d[\d-]*\d$/,
+        "Number must contain only digits and dashes, and start/end with a digit"
+      )
+      .min(3, "Number must be at least 3 characters")
+      .max(50, "Number must be at most 50 characters"),
   });
 
   const handleSubmit = (values, { resetForm }) => {
